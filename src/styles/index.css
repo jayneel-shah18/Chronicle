@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-chronicle-stone/20;
+  }
+  
+  body {
+    @apply bg-chronicle-cream text-chronicle-ink font-sans antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1, 'ss01' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    @apply bg-chronicle-sage/30 text-chronicle-ink;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white/80 backdrop-blur-sm rounded-card shadow-soft border border-chronicle-stone/10 p-6
+           transition-all duration-300 hover:shadow-medium;
+  }
+
+  .card-soft {
+    @apply bg-chronicle-sand/50 rounded-card p-5 border border-chronicle-stone/10
+           transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-chronicle-sage text-white px-5 py-2.5 rounded-soft font-medium 
+           shadow-soft hover:bg-chronicle-sage-dark hover:shadow-medium
+           active:scale-95 transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-chronicle-sage/50 focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply bg-white border-2 border-chronicle-stone/20 text-chronicle-charcoal 
+           px-5 py-2.5 rounded-soft font-medium shadow-soft
+           hover:border-chronicle-sage hover:bg-chronicle-sage/5
+           active:scale-95 transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-chronicle-sage/30 focus:ring-offset-2;
+  }
+
+  .btn-ghost {
+    @apply text-chronicle-charcoal px-4 py-2 rounded-soft font-medium
+           hover:bg-chronicle-warm-gray/50 active:scale-95 transition-all duration-200;
+  }
+
+  .input {
+    @apply bg-white/80 border-2 border-chronicle-stone/20 rounded-soft px-4 py-3 
+           text-chronicle-ink placeholder:text-chronicle-stone
+           shadow-inner-soft transition-all duration-200
+           focus:outline-none focus:border-chronicle-sage focus:bg-white focus:shadow-soft;
+  }
+
+  .input-lg {
+    @apply input text-lg py-4;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
+           bg-chronicle-warm-gray/50 text-chronicle-charcoal;
+  }
+
+  .badge-success {
+    @apply badge bg-chronicle-sage/20 text-chronicle-forest;
+  }
+
+  .badge-warning {
+    @apply badge bg-chronicle-ochre/20 text-chronicle-ochre-dark;
+  }
+
+  .badge-error {
+    @apply badge bg-chronicle-rust/20 text-chronicle-rust;
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-chronicle-warm-gray/30 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-chronicle-stone/40 rounded-full hover:bg-chronicle-stone/60;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-br from-chronicle-sage via-chronicle-moss to-chronicle-forest 
+           bg-clip-text text-transparent;
+  }
+
+  .gradient-warm {
+    @apply bg-gradient-to-br from-chronicle-terracotta via-chronicle-ochre to-chronicle-clay
+           bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .pattern-dots {
+    background-image: radial-gradient(circle, rgba(168, 184, 150, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .pattern-grid {
+    background-image: 
+      linear-gradient(rgba(168, 184, 150, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(168, 184, 150, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}

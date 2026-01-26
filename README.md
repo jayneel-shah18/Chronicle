@@ -1,27 +1,21 @@
 # Chronicle
 
-> A comprehensive life management dashboard for tracking your daily todos, long-term goals, habits, journal entries, and expenses.
-
-![Chronicle Dashboard](./docs/screenshot.png)
+> Your personal sanctuary for growth - a comprehensive life management app with a warm, natural design that feels like home.
 
 ## ✨ Features
 
-- **📝 Daily To-Dos**: Manage your tasks with a clean, intuitive interface
-- **🎯 Long-Term Goals**: Track progress on your biggest ambitions with progress bars
-- **📖 Journal**: Write daily reflections and review past entries
-- **🔥 Habit Tracker**: Build consistency with daily habit tracking
-- **💰 Expense Tracker**: Monitor spending by category
-- **📅 365-Day Calendar**: Visualize your productivity across the year
-- **🌙 Dark Mode**: Beautiful dark theme for comfortable viewing
+- **📝 Daily To-Dos**: Manage your tasks with an intuitive, distraction-free interface
+- **🎯 Long-Term Goals**: Track progress on your biggest ambitions with elegant progress bars
+- **📖 Journal**: Write daily reflections in a peaceful writing environment
+- **🔥 Habit Tracker**: Build consistency with visual streak tracking
+- **💰 Expense Tracker**: Monitor spending with clear category breakdowns
+- **📅 365-Day Heatmap**: Visualize your productivity journey across the year
+- **⌨️ Keyboard Shortcuts**: Navigate efficiently with intuitive shortcuts
+- **🎨 Natural Design**: Warm, earthy aesthetic that feels human-crafted
 - **💾 Auto-Save**: All data automatically persists locally
+- **🔔 Toast Notifications**: Gentle feedback for all actions
 
 ## 🚀 Quick Start
-
-### Current Version (Standalone HTML)
-
-Simply open `index.html` in your browser! No installation required.
-
-### Development Version (React + Vite)
 
 ```bash
 # Install dependencies
@@ -37,103 +31,89 @@ npm run build
 npm run preview
 ```
 
+Visit `http://localhost:3000` to see your Chronicle dashboard.
+
 ## 📁 Project Structure
 
 ```
 chronicle/
-├── src/                    # Source files (React app)
-│   ├── components/        # React components
-│   ├── hooks/            # Custom React hooks
-│   ├── services/         # API services
-│   ├── types/            # TypeScript types
-│   └── utils/            # Helper functions
-├── public/               # Static assets
-├── tests/                # Test files
-├── docs/                 # Documentation
-├── index.html            # Standalone version
-├── todos.html           # Standalone todos page
-├── goals.html           # Standalone goals page
-├── journal.html         # Standalone journal page
-├── habits.html          # Standalone habits page
-└── expenses.html        # Standalone expenses page
+├── src/
+│   ├── components/
+│   │   ├── common/        # Reusable UI components (Card, SectionHeader, Toast)
+│   │   └── pages/         # Page components (Dashboard, Todos, Goals, etc.)
+│   ├── hooks/             # Custom React hooks (keyboard shortcuts)
+│   ├── store/             # Zustand state management
+│   ├── styles/            # Global CSS and Tailwind configuration
+│   ├── utils/             # Helper functions
+│   └── main.tsx           # App entry point
+├── archive/               # Old standalone HTML files
+├── public/                # Static assets
+└── index.html             # Vite entry point
 ```
 
 ## 🎨 Design System
 
-Chronicle uses a carefully crafted design system:
+Chronicle features a warm, natural design inspired by paper, nature, and comfort:
 
-- **Colors**: Dark navy background (#0f172a), slate cards (#1e293b)
-- **Accents**: Blue (#3b82f6), Amber (#f59e0b), Emerald (#10b981), Rose (#f43f5e)
-- **Typography**: System font stack for optimal performance
-- **Layout**: Responsive grid with mobile-first approach
+### Color Palette
+- **Base**: Cream (#FFF8F0), Sand (#F5EBE0), Warm Gray (#E3DED8)
+- **Text**: Charcoal (#4A4238), Ink (#2D2621), Stone (#C8BDB1)
+- **Accents**: Sage (#A8B896), Terracotta (#D4856A), Ochre (#E6A756), Clay (#C4917A)
+
+### Typography
+- **Display**: Outfit (headers, 400-800 weight)
+- **Body**: Inter (content, 300-700 weight)
+- **Scale**: Carefully tuned line heights and letter spacing for readability
+
+### Components
+- **Soft shadows**: Layered, subtle depth (0.04-0.08 opacity)
+- **Border radius**: Organic curves (0.5rem soft, 1.25rem card, 1.75rem large)
+- **Animations**: Smooth cubic-bezier easing for natural motion
+- **Patterns**: Subtle dot and grid backgrounds for texture
 
 ## 🛠️ Technology Stack
 
-### Current
-- React 18 (via CDN)
-- Tailwind CSS (via CDN)
-- localStorage for data persistence
+- **React 18** - Modern UI library with hooks
+- **TypeScript** - Type-safe development
+- **Vite** - Lightning-fast build tool and dev server
+- **Zustand** - Lightweight state management
+- **React Router** - Client-side routing
+- **Tailwind CSS** - Utility-first styling with custom design tokens
+- **Lucide React** - Beautiful, consistent icons
+- **localStorage** - Client-side data persistence
 
-### Planned (Production)
-- React 18 + TypeScript
-- Vite
-- Supabase (Backend + Auth)
-- React Router
-- Zustand (State Management)
-- React Hook Form + Zod
-- Lucide React Icons
+## ⌨️ Keyboard Shortcuts
 
-## 📋 Roadmap
+- **n** - Create new item (context-aware)
+- **j/k** - Navigate down/up in lists
+- **d** - Delete selected item
+- **Enter** - Edit/toggle selected item
+- **Esc** - Cancel/close dialogs
+- **Ctrl+/** - Show shortcuts help (coming soon)
 
-See [SCALING_PLAN.md](./SCALING_PLAN.md) for detailed roadmap.
+## 📋 Development Status
 
-### Phase 1: Foundation ✅ (In Progress)
-- [x] Core functionality
-- [x] Standalone pages
-- [x] Data synchronization
-- [ ] Modern build setup
-- [ ] Component library
-- [ ] TypeScript migration
+Chronicle is currently in **Phase 3: Polish & UX** - the core React application with warm, natural design is complete!
 
-### Phase 2: Backend & Database
-- [ ] User authentication
-- [ ] PostgreSQL database
-- [ ] API development
-- [ ] Multi-device sync
+### ✅ Completed
+- Modern React 18 + TypeScript + Vite architecture
+- All 6 pages migrated (Dashboard, Todos, Goals, Journal, Habits, Expenses)
+- Warm, natural design system (cream, sage, terracotta palette)
+- Toast notification system
+- Keyboard shortcuts
+- Component library (Card variants, SectionHeader)
+- localStorage persistence with Zustand
 
-### Phase 3: Enhanced Features
-- [ ] PWA support
-- [ ] Data export
-- [ ] Search functionality
-- [ ] Notifications
-
-### Phase 4: Testing & Quality
-- [ ] Unit tests
-- [ ] E2E tests
-- [ ] Accessibility audit
-- [ ] Performance optimization
-
-### Phase 5: Deployment
-- [ ] CI/CD pipeline
-- [ ] Production deployment
-- [ ] Monitoring
-- [ ] Analytics
+### 🎯 Next Steps
+See [SCALING_PLAN.md](./SCALING_PLAN.md) for the complete roadmap to production.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please read our contributing guidelines before submitting PRs.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+This is a personal project, but suggestions and feedback are welcome!
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
+MIT License - feel free to use this for your own productivity needs.
 
 - Icons by [Lucide](https://lucide.dev/)
 - Styling by [Tailwind CSS](https://tailwindcss.com/)
