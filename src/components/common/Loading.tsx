@@ -39,3 +39,14 @@ export function LoadingOverlay({ message = 'Loading...' }: { message?: string })
     </div>
   );
 }
+
+export default function Loading() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-chronicle-cream via-chronicle-sand to-chronicle-warm-gray/30 flex items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <Spinner size={48} className="text-chronicle-sage" />
+        <p className="text-chronicle-charcoal font-medium">Loading...</p>
+      </div>
+    </div>
+  );
+}

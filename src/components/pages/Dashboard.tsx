@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import Card from '../common/Card';
 import SectionHeader from '../common/SectionHeader';
+import Navigation from '../common/Navigation';
 import useStore from '../../store/useStore';
 import { getDateKey, formatDate, getDaysInYear } from '../../utils/date';
 import { formatCurrency } from '../../utils/format';
@@ -57,16 +58,18 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-chronicle-cream via-chronicle-sand to-chronicle-warm-gray/30 pattern-dots">
+      <Navigation />
+      
       <div className="max-w-[1600px] mx-auto p-4 md:p-8 lg:p-12">
         {/* Header */}
         <header className="mb-12 animate-slide-down">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h1 className="text-5xl md:text-6xl font-display font-bold gradient-text mb-2">
-                Chronicle
+              <h1 className="text-4xl md:text-5xl font-display font-bold gradient-text mb-2">
+                Dashboard
               </h1>
               <p className="text-chronicle-stone text-lg">
-                Your personal sanctuary for growth
+                Track your progress and stay accountable
               </p>
             </div>
             <div className="flex items-center gap-3">

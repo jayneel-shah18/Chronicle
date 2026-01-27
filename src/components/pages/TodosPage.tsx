@@ -1,7 +1,8 @@
-import { useState, FormEvent, useRef, useEffect } from 'react';
+import { useState, FormEvent, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Plus, CheckCircle2, Circle, Trash2 } from 'lucide-react';
 import Card from '../common/Card';
+import Navigation from '../common/Navigation';
 import useStore from '../../store/useStore';
 import { getDateKey, formatDate } from '../../utils/date';
 import { toast } from '../common/Toast';
@@ -78,7 +79,9 @@ export default function TodosPage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-chronicle-bg-dark text-chronicle-text-light p-4 md:p-8">
+    <div className="min-h-screen bg-chronicle-bg-dark text-chronicle-text-light">
+      <Navigation />
+      <div className="p-4 md:p-8">
       <div className="max-w-4xl mx-auto">
         <Link
           to="/"
@@ -179,6 +182,7 @@ export default function TodosPage() {
             )}
           </div>
         </Card>
+      </div>
       </div>
     </div>
   );

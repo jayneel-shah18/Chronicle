@@ -1,6 +1,7 @@
 import { useState, FormEvent, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Plus, DollarSign, Trash2 } from 'lucide-react';
+import Navigation from '../common/Navigation';
 import Card from '../common/Card';
 import useStore from '../../store/useStore';
 import { formatCurrency } from '../../utils/format';
@@ -51,7 +52,9 @@ export default function ExpensesPage() {
   })).filter(c => c.total > 0);
 
   return (
-    <div className="min-h-screen bg-chronicle-bg-dark text-chronicle-text-light p-4 md:p-8">
+    <div className="min-h-screen bg-chronicle-bg-dark text-chronicle-text-light">
+      <Navigation />
+      <div className="p-4 md:p-8 pt-24">
       <div className="max-w-6xl mx-auto">
         <Link
           to="/"
@@ -194,6 +197,7 @@ export default function ExpensesPage() {
             </Card>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
