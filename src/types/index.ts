@@ -79,6 +79,7 @@ export interface AppActions {
   updateHabitStatus: (habitName: string, dateKey: string, status: HabitStatus) => void;
   deleteHabit: (name: string) => void;
   addExpense: (expense: Omit<Expense, 'id' | 'date'>) => void;
+  updateExpense: (id: number, expense: Omit<Expense, 'id' | 'date'>) => void;
   deleteExpense: (id: number) => void;
   loadFromLocalStorage: () => void;
 }

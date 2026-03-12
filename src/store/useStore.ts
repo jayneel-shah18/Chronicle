@@ -115,6 +115,14 @@ const useStore = create<AppState & AppActions>()(
         });
       },
 
+      updateExpense: (id: number, expense: Omit<Expense, 'id' | 'date'>) => {
+        set({
+          expenses: get().expenses.map((exp: Expense) =>
+            exp.id === id ? { ...exp, ...expense } : exp
+          ),
+        });
+      },
+
       deleteExpense: (id: number) => {
         set({
           expenses: get().expenses.filter((exp: Expense) => exp.id !== id),

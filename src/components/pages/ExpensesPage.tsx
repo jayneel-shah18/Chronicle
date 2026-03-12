@@ -1,6 +1,6 @@
 import { useState, FormEvent, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Plus, DollarSign, Trash2 } from 'lucide-react';
+import { ArrowLeft, Plus, DollarSign, Trash2, Edit2, X, Check } from 'lucide-react';
 import Navigation from '../common/Navigation';
 import Card from '../common/Card';
 import useStore from '../../store/useStore';
@@ -14,8 +14,12 @@ export default function ExpensesPage() {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState<typeof CATEGORIES[number]>('Food');
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editName, setEditName] = useState('');
+  const [editAmount, setEditAmount] = useState('');
+  const [editCategory, setEditCategory] = useState<typeof CATEGORIES[number]>('Food');
   const nameInputRef = useRef<HTMLInputElement>(null);
-  const { expenses, addExpense, deleteExpense } = useStore();
+  const { expenses, addExpense, updateExpense, deleteExpense } = useStore();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -36,6 +40,32 @@ export default function ExpensesPage() {
   const handleDeleteExpense = (id: number) => {
     deleteExpense(id);
     toast.info('Expense deleted');
+  };
+
+  const handleEditExpense = (expense: any) => {
+    setEditingId(expense.id);
+    setEditName(expense.name);
+    setEditAmount(expense.amount.toString());
+    setEditCategory(expense.category);
+  };
+
+  const handleSaveEdit = (id: number) => {
+    if (editName.trim() && editAmount && parseFloat(editAmount) > 0) {
+      updateExpense(id, {
+        name: editName.trim(),
+        amount: parseFloat(editAmount),
+        category: editCategory,
+      });
+      toast.success('Expense updated');
+      setEditingId(null);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditName('');
+    setEditAmount('');
+    setEditCategory('Food');
   };
 
   useKeyboardShortcuts([
@@ -121,35 +151,95 @@ export default function ExpensesPage() {
                   </p>
                 ) : (
                   expenses.map(expense => (
-                    <div
-                      key={expense.id}
-                      className="flex items-center justify-between p-4 bg-chronicle-bg-dark/60 rounded-xl hover:bg-chronicle-bg-dark/80 transition-colors group"
-                    >
-                      <div className="flex-1">
-                        <div className="font-semibold">{expense.name}</div>
-                        <div className="text-sm text-chronicle-text-muted flex items-center gap-2">
-                          <span>{expense.category}</span>
-                          <span>·</span>
-                          <span>
-                            {new Date(expense.date).toLocaleDateString('en-US', {
-                              month: 'short',
-                              day: 'numeric',
-                            })}
-                          </span>
+                    editingId === expense.id ? (
+                      <div
+                        key={expense.id}
+                        className="flex items-center gap-3 p-4 bg-chronicle-bg-dark/80 rounded-xl border border-accent-amber"
+                      >
+                        <div className="flex-1 grid grid-cols-3 gap-2">
+                          <input
+                            type="text"
+                            value={editName}
+                            onChange={(e) => setEditName(e.target.value)}
+                            className="input text-sm"
+                            placeholder="Expense name"
+                          />
+                          <input
+                            type="number"
+                            step="0.01"
+                            value={editAmount}
+                            onChange={(e) => setEditAmount(e.target.value)}
+                            className="input text-sm"
+                            placeholder="Amount"
+                          />
+                          <select
+                            value={editCategory}
+                            onChange={(e) => setEditCategory(e.target.value as typeof CATEGORIES[number])}
+                            className="input text-sm"
+                          >
+                            {CATEGORIES.map(cat => (
+                              <option key={cat} value={cat}>
+                                {cat}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleSaveEdit(expense.id!)}
+                            className="text-accent-emerald hover:scale-110 transform transition-transform"
+                            title="Save"
+                          >
+                            <Check size={20} />
+                          </button>
+                          <button
+                            onClick={handleCancelEdit}
+                            className="text-chronicle-text-muted hover:scale-110 transform transition-transform"
+                            title="Cancel"
+                          >
+                            <X size={20} />
+                          </button>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <span className="font-bold text-accent-rose">
-                          {formatCurrency(expense.amount)}
-                        </span>
-                        <button
-                          onClick={() => handleDeleteExpense(expense.id!)}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity text-accent-rose hover:scale-110 transform"
-                        >
-                          <Trash2 size={18} />
-                        </button>
+                    ) : (
+                      <div
+                        key={expense.id}
+                        className="flex items-center justify-between p-4 bg-chronicle-bg-dark/60 rounded-xl hover:bg-chronicle-bg-dark/80 transition-colors group"
+                      >
+                        <div className="flex-1">
+                          <div className="font-semibold">{expense.name}</div>
+                          <div className="text-sm text-chronicle-text-muted flex items-center gap-2">
+                            <span>{expense.category}</span>
+                            <span>·</span>
+                            <span>
+                              {new Date(expense.date).toLocaleDateString('en-US', {
+                                month: 'short',
+                                day: 'numeric',
+                              })}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className="font-bold text-accent-rose">
+                            {formatCurrency(expense.amount)}
+                          </span>
+                          <button
+                            onClick={() => handleEditExpense(expense)}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity text-accent-amber hover:scale-110 transform"
+                            title="Edit"
+                          >
+                            <Edit2 size={18} />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteExpense(expense.id!)}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity text-accent-rose hover:scale-110 transform"
+                            title="Delete"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    )
                   ))
                 )}
               </div>

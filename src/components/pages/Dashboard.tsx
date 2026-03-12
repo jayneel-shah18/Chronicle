@@ -21,7 +21,7 @@ import { formatCurrency } from '../../utils/format';
 
 export default function Dashboard() {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const { todos, goals, journalEntries, habits, habitData, expenses } = useStore();
+  const { todos, goals, journalEntries, habits, habitData, expenses, toggleTodo } = useStore();
   
   const dateKey = getDateKey(selectedDate);
   const currentTodos = todos[dateKey] || [];
@@ -172,7 +172,11 @@ export default function Dashboard() {
                 </div>
               ) : (
                 currentTodos.slice(-3).map((todo: any) => (
-                  <div key={todo.id} className="flex items-center gap-3 p-3 bg-chronicle-sand/50 rounded-soft hover:bg-chronicle-warm-gray/40 transition-all group">
+                  <div 
+                    key={todo.id} 
+                    className="flex items-center gap-3 p-3 bg-chronicle-sand/50 rounded-soft hover:bg-chronicle-warm-gray/40 transition-all group cursor-pointer"
+                    onClick={() => toggleTodo(dateKey, todo.id)}
+                  >
                     {todo.completed ? (
                       <CheckCircle2 size={20} className="text-chronicle-sage flex-shrink-0" />
                     ) : (
