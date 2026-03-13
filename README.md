@@ -1,47 +1,119 @@
 # Chronicle
 
-> Your personal sanctuary for growth - track todos, goals, habits, journal, and expenses with a warm, natural design.
+Your personal sanctuary for growth. Chronicle helps you track todos, goals, habits, journal entries, and expenses with a warm, focused UI.
 
-## ✨ Features
+## Current Stage
 
-- **� Authentication** - Secure sign-in with email/password or Google OAuth via Supabase
-- **📝 Daily To-Dos** - Manage tasks with date-based organization
-- **🎯 Long-Term Goals** - Track progress with visual progress bars
-- **📖 Journal** - Daily reflections in a peaceful writing space
-- **🔥 Habit Tracker** - Build consistency with streak tracking
-- **💰 Expense Tracker** - Monitor spending by category
-- **📅 365-Day Heatmap** - Visualize your productivity year
-- **⌨️ Keyboard Shortcuts** - Navigate efficiently (n, j/k, d, Enter, Esc)
-- **💾 Auto-Save** - All data persists with Supabase backend
+Chronicle is in a functional web app stage with:
 
-## 🚀 Quick Start
+- React + TypeScript migration completed for all core pages
+- Supabase authentication integrated
+- Google OAuth integrated
+- Protected routes and session persistence enabled
+- Ready for deployment to static hosts (Vercel/Netlify/Cloudflare Pages)
+
+## Features
+
+- Authentication with Supabase (email/password + Google OAuth)
+- Dashboard with a yearly activity heatmap
+- Daily todos with completion tracking
+- Goals with progress visualization
+- Journal with date-based entries
+- Habit tracking with streak-friendly workflow
+- Expense tracking by category
+- Global keyboard shortcuts
+- Toast notifications and loading states
+
+## Tech Stack
+
+- React 18
+- TypeScript
+- Vite 5
+- Tailwind CSS
+- Zustand
+- React Router
+- Supabase
+
+## Getting Started
+
+### 1. Install dependencies
 
 ```bash
 npm install
+```
+
+### 2. Configure environment
+
+Create .env.local in the project root:
+
+```env
+VITE_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+```
+
+### 3. Run the app
+
+```bash
 npm run dev
 ```
 
-Visit `http://localhost:3001` to start using Chronicle.
+Open http://localhost:3000
 
-> **Note**: Authentication requires Supabase setup. See `archive/SETUP_AUTH.md` for configuration details.
+## Authentication Setup
 
-## 🎨 Design System
+### Supabase
 
-Warm, natural aesthetic inspired by paper and earth tones:
+1. Create a Supabase project.
+2. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to .env.local.
+3. In Supabase, go to Authentication -> URL Configuration:
+	- Site URL: http://localhost:3000
+	- Redirect URLs: http://localhost:3000/**
 
-- **Colors**: Cream, Sand, Sage, Terracotta, Ochre
-- **Typography**: Inter (body) + Outfit (display)
-- **Style**: Soft shadows, organic curves, smooth animations
+### Google OAuth
 
-## 🛠️ Tech Stack
+1. In Google Cloud Console, create OAuth credentials (Web application).
+2. Add Authorized redirect URI:
+	- https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback
+3. In Supabase, go to Authentication -> Providers -> Google and paste:
+	- Client ID
+	- Client Secret
 
-- React 18 + TypeScript
-- Vite
-- Supabase (auth + data)
-- Zustand (state)
-- React Router
-- Tailwind CSS
+For legacy/auth notes, see archive/SETUP_AUTH.md.
 
-## 📄 License
+## Available Scripts
 
-MIT License - free to use for your own productivity needs.
+- npm run dev: Start development server
+- npm run build: Type-check and create production build
+- npm run preview: Preview production build locally
+- npm run lint: Run ESLint
+- npm run test: Run tests
+
+## Deployment
+
+Recommended: Vercel.
+
+Build settings:
+
+- Build command: npm run build
+- Output directory: dist
+
+After deployment:
+
+1. Add your production URL to Supabase Authentication URL Configuration.
+2. Add your production domain/origin in Google OAuth client settings.
+3. Set production environment variables in your hosting provider.
+
+## Project Structure
+
+Core source code lives in src:
+
+- src/components/pages: App pages
+- src/components/common: Shared UI
+- src/contexts: Auth context
+- src/store: Zustand state
+- src/lib: Supabase client
+- src/hooks: Custom hooks
+
+## License
+
+MIT
