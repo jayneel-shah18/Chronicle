@@ -116,4 +116,6 @@ Core source code lives in src:
 
 ## License
 
-MIT
+Apache-2.0
+
+This project is free to use, including commercial use, as long as license and attribution notices are preserved.
