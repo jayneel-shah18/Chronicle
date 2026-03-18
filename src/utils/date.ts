@@ -7,8 +7,20 @@ export const formatDate = (date: Date): string => {
   });
 };
 
+const pad2 = (value: number): string => value.toString().padStart(2, '0');
+
 export const getDateKey = (date: Date): string => {
-  return date.toISOString().split('T')[0];
+  const year = date.getFullYear();
+  const month = pad2(date.getMonth() + 1);
+  const day = pad2(date.getDate());
+  return `${year}-${month}-${day}`;
+};
+
+// Compatibility helper for data created before local date key logic.
+export const getDateLookupKeys = (date: Date): string[] => {
+  const localKey = getDateKey(date);
+  const utcKey = date.toISOString().split('T')[0];
+  return localKey === utcKey ? [localKey] : [localKey, utcKey];
 };
 
 export const isToday = (date: Date): boolean => {

@@ -49,6 +49,8 @@ Create .env.local in the project root:
 ```env
 VITE_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
 VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+# Optional (recommended for deployment):
+# VITE_AUTH_REDIRECT_URL=https://your-deployed-domain.com/
 ```
 
 ### 3. Run the app
@@ -65,9 +67,14 @@ Open http://localhost:3000
 
 1. Create a Supabase project.
 2. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to .env.local.
-3. In Supabase, go to Authentication -> URL Configuration:
+3. For local development in Supabase Authentication -> URL Configuration:
 	- Site URL: http://localhost:3000
 	- Redirect URLs: http://localhost:3000/**
+4. For production, also add your deployed domain in Supabase Authentication -> URL Configuration:
+	- Site URL: https://your-deployed-domain.com
+	- Redirect URLs: https://your-deployed-domain.com/**
+5. In your deployment environment variables, set:
+	- VITE_AUTH_REDIRECT_URL=https://your-deployed-domain.com/
 
 ### Google OAuth
 

@@ -14,6 +14,15 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const getAuthRedirectUrl = () => {
+  const configuredUrl = import.meta.env.VITE_AUTH_REDIRECT_URL;
+  if (configuredUrl) {
+    return configuredUrl;
+  }
+
+  return `${window.location.origin}/`;
+};
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
@@ -52,6 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       email,
       password,
       options: {
+        emailRedirectTo: getAuthRedirectUrl(),
         data: {
           name: name,
         },
@@ -80,7 +90,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { error } = await supabase!.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/`,
+        redirectTo: getAuthRedirectUrl(),
       },
     });
     return { error };

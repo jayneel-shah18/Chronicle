@@ -97,7 +97,7 @@ export default function ExpensesPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <Card className="mb-6">
-              <h1 className="text-4xl font-extrabold mb-2 bg-gradient-to-r from-accent-rose to-accent-amber bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-4xl font-extrabold mb-2 bg-gradient-to-r from-accent-rose to-accent-amber bg-clip-text text-transparent">
                 Expense Tracker
               </h1>
               <p className="text-chronicle-text-muted mb-8">
@@ -156,7 +156,7 @@ export default function ExpensesPage() {
                         key={expense.id}
                         className="flex items-center gap-3 p-4 bg-chronicle-bg-dark/80 rounded-xl border border-accent-amber"
                       >
-                        <div className="flex-1 grid grid-cols-3 gap-2">
+                        <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-2">
                           <input
                             type="text"
                             value={editName}
@@ -184,7 +184,7 @@ export default function ExpensesPage() {
                             ))}
                           </select>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 self-start sm:self-center">
                           <button
                             onClick={() => handleSaveEdit(expense.id!)}
                             className="text-accent-emerald hover:scale-110 transform transition-transform"
@@ -204,7 +204,7 @@ export default function ExpensesPage() {
                     ) : (
                       <div
                         key={expense.id}
-                        className="flex items-center justify-between p-4 bg-chronicle-bg-dark/60 rounded-xl hover:bg-chronicle-bg-dark/80 transition-colors group"
+                        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-chronicle-bg-dark/60 rounded-xl hover:bg-chronicle-bg-dark/80 transition-colors group"
                       >
                         <div className="flex-1">
                           <div className="font-semibold">{expense.name}</div>
@@ -225,14 +225,14 @@ export default function ExpensesPage() {
                           </span>
                           <button
                             onClick={() => handleEditExpense(expense)}
-                            className="opacity-0 group-hover:opacity-100 transition-opacity text-accent-amber hover:scale-110 transform"
+                            className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-accent-amber hover:scale-110 transform"
                             title="Edit"
                           >
                             <Edit2 size={18} />
                           </button>
                           <button
                             onClick={() => handleDeleteExpense(expense.id!)}
-                            className="opacity-0 group-hover:opacity-100 transition-opacity text-accent-rose hover:scale-110 transform"
+                            className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-accent-rose hover:scale-110 transform"
                             title="Delete"
                           >
                             <Trash2 size={18} />
@@ -252,7 +252,7 @@ export default function ExpensesPage() {
                 <DollarSign size={20} className="text-accent-rose" />
                 Total Spending
               </h2>
-              <div className="text-4xl font-extrabold text-accent-rose">
+              <div className="text-3xl md:text-4xl font-extrabold text-accent-rose">
                 {formatCurrency(totalExpenses)}
               </div>
               <p className="text-sm text-chronicle-text-muted mt-2">

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { User, LogOut, Settings, Menu, X } from 'lucide-react';
 import useToast from '../../hooks/useToast';
@@ -9,6 +9,7 @@ export default function Navigation() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { showToast } = useToast();
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -23,6 +24,11 @@ export default function Navigation() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    setShowMobileMenu(false);
+    setShowProfileMenu(false);
+  }, [location.pathname]);
 
   const handleSignOut = async () => {
     const { error } = await signOut();
@@ -50,7 +56,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <h1 className="text-2xl font-display font-bold gradient-text">
+            <h1 className="text-xl sm:text-2xl font-display font-bold gradient-text">
               Chronicle
             </h1>
           </Link>
@@ -94,7 +100,7 @@ export default function Navigation() {
 
               {/* Dropdown Menu */}
               {showProfileMenu && (
-                <div className="absolute right-0 mt-2 w-64 bg-white rounded-card shadow-large border border-chronicle-stone/10 py-2 animate-scale-in z-50">
+                <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] max-w-xs sm:w-64 bg-white rounded-card shadow-large border border-chronicle-stone/10 py-2 animate-scale-in z-50">
                   <div className="px-4 py-3 border-b border-chronicle-stone/10">
                     <p className="text-sm font-medium text-chronicle-ink">
                       Welcome back, {user?.user_metadata?.name || 'there'}!

@@ -16,7 +16,7 @@ import Card from '../common/Card';
 import SectionHeader from '../common/SectionHeader';
 import Navigation from '../common/Navigation';
 import useStore from '../../store/useStore';
-import { getDateKey, formatDate, getDaysInYear } from '../../utils/date';
+import { getDateKey, getDateLookupKeys, formatDate, getDaysInYear } from '../../utils/date';
 import { formatCurrency } from '../../utils/format';
 
 export default function Dashboard() {
@@ -24,9 +24,29 @@ export default function Dashboard() {
   const { todos, goals, journalEntries, habits, habitData, expenses, toggleTodo } = useStore();
   
   const dateKey = getDateKey(selectedDate);
+  const selectedDateLookupKeys = getDateLookupKeys(selectedDate);
   const currentTodos = todos[dateKey] || [];
   const completedToday = currentTodos.filter(t => t.completed).length;
   const totalToday = currentTodos.length;
+
+  const selectedEntry = selectedDateLookupKeys
+    .map((key) => journalEntries[key])
+    .find((entry) => typeof entry === 'string' && entry.trim().length > 0);
+
+  const latestJournalEntry = Object.entries(journalEntries)
+    .filter(([, entry]) => typeof entry === 'string' && entry.trim().length > 0)
+    .sort(([a], [b]) => b.localeCompare(a))[0];
+
+  const dashboardJournalPreview = selectedEntry || latestJournalEntry?.[1] || '';
+  const isLatestFallback = !selectedEntry && !!latestJournalEntry;
+
+  const formatDateKey = (key: string) => {
+    return new Date(`${key}T12:00:00`).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
   
   const changeDate = (days: number) => {
     const newDate = new Date(selectedDate);
@@ -62,18 +82,18 @@ export default function Dashboard() {
       
       <div className="max-w-[1600px] mx-auto p-4 md:p-8 lg:p-12">
         {/* Header */}
-        <header className="mb-12 animate-slide-down">
-          <div className="flex items-center justify-between mb-3">
+        <header className="mb-8 md:mb-12 animate-slide-down">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-3">
             <div>
-              <h1 className="text-4xl md:text-5xl font-display font-bold gradient-text mb-2">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold gradient-text mb-2">
                 Dashboard
               </h1>
-              <p className="text-chronicle-stone text-lg">
+              <p className="text-chronicle-stone text-base sm:text-lg">
                 Track your progress and stay accountable
               </p>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="bg-white/80 backdrop-blur-sm rounded-card px-6 py-4 shadow-soft border border-chronicle-stone/10">
+            <div className="flex items-center gap-3 w-full sm:w-auto">
+              <div className="bg-white/80 backdrop-blur-sm rounded-card px-4 sm:px-6 py-4 shadow-soft border border-chronicle-stone/10 w-full sm:w-auto">
                 <div className="text-sm text-chronicle-stone">Today's Progress</div>
                 <div className="text-2xl font-bold text-chronicle-sage-dark mt-1">
                   {totalToday > 0 ? Math.round((completedToday / totalToday) * 100) : 0}%
@@ -85,12 +105,12 @@ export default function Dashboard() {
 
         {/* Date Navigator */}
         <Card className="mb-8 animate-scale-in" variant="elevated">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2 sm:gap-4">
             <button
               onClick={() => changeDate(-1)}
-              className="p-3 hover:bg-chronicle-sage/10 rounded-soft transition-all hover:scale-110 active:scale-95 text-chronicle-charcoal"
+              className="p-2 sm:p-3 hover:bg-chronicle-sage/10 rounded-soft transition-all hover:scale-110 active:scale-95 text-chronicle-charcoal"
             >
-              <ChevronLeft size={24} />
+              <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
             </button>
             
             <div className="text-center">
@@ -109,9 +129,9 @@ export default function Dashboard() {
 
             <button
               onClick={() => changeDate(1)}
-              className="p-3 hover:bg-chronicle-sage/10 rounded-soft transition-all hover:scale-110 active:scale-95 text-chronicle-charcoal"
+              className="p-2 sm:p-3 hover:bg-chronicle-sage/10 rounded-soft transition-all hover:scale-110 active:scale-95 text-chronicle-charcoal"
             >
-              <ChevronRight size={24} />
+              <ChevronRight size={20} className="sm:w-6 sm:h-6" />
             </button>
           </div>
         </Card>
@@ -250,19 +270,24 @@ export default function Dashboard() {
             <SectionHeader 
               icon={BookOpen} 
               title="Journal"
-              subtitle="Today's reflection"
+              subtitle="Reflection preview"
             />
             <div className="mb-6">
-              {journalEntries[dateKey] ? (
+              {dashboardJournalPreview ? (
                 <div className="p-4 bg-chronicle-sand/50 rounded-soft border border-chronicle-stone/10">
+                  {isLatestFallback && latestJournalEntry && (
+                    <p className="text-xs text-chronicle-stone mb-2">
+                      No entry for this date yet. Showing latest from {formatDateKey(latestJournalEntry[0])}.
+                    </p>
+                  )}
                   <p className="text-chronicle-charcoal line-clamp-4 leading-relaxed">
-                    {journalEntries[dateKey]}
+                    {dashboardJournalPreview}
                   </p>
                 </div>
               ) : (
                 <div className="text-center py-8 text-chronicle-stone">
                   <BookOpen className="mx-auto mb-3 opacity-30" size={40} />
-                  <p>No entry yet. Capture your thoughts.</p>
+                  <p>No journal entries yet. Capture your thoughts.</p>
                 </div>
               )}
             </div>

@@ -84,6 +84,12 @@ const useStore = create<AppState & AppActions>()(
         });
       },
 
+      deleteJournalEntry: (dateKey: string) => {
+        const nextEntries = { ...get().journalEntries };
+        delete nextEntries[dateKey];
+        set({ journalEntries: nextEntries });
+      },
+
       addHabit: (name: string) => {
         set({
           habits: [...get().habits, { id: Date.now(), name }],

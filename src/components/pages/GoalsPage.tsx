@@ -67,14 +67,14 @@ export default function GoalsPage() {
         </Link>
 
         <Card>
-          <h1 className="text-4xl font-extrabold mb-2 bg-gradient-to-r from-accent-amber to-accent-emerald bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-2 bg-gradient-to-r from-accent-amber to-accent-emerald bg-clip-text text-transparent">
             Long-Term Goals
           </h1>
           <p className="text-chronicle-text-muted mb-8">
             Track your progress towards your biggest ambitions
           </p>
 
-          <form onSubmit={handleSubmit} className="flex gap-3 mb-8">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 mb-8">
             <input
               ref={inputRef}
               type="text"
@@ -84,7 +84,7 @@ export default function GoalsPage() {
               className="input flex-1"
               autoFocus
             />
-            <button type="submit" className="btn-primary flex items-center gap-2">
+            <button type="submit" className="btn-primary flex items-center justify-center gap-2 sm:w-auto w-full">
               <Plus size={20} />
               Add Goal
             </button>
@@ -121,7 +121,7 @@ export default function GoalsPage() {
                         e.stopPropagation();
                         handleDeleteGoal(goal.id);
                       }}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-accent-rose hover:scale-110 transform"
+                      className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-accent-rose hover:scale-110 transform"
                     >
                       <Trash2 size={18} />
                     </button>
@@ -134,7 +134,7 @@ export default function GoalsPage() {
                     />
                   </div>
 
-                  <div className="flex gap-2">
+                  <div className="grid grid-cols-2 sm:flex gap-2">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();

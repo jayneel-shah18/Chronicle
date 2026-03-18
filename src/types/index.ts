@@ -75,6 +75,7 @@ export interface AppActions {
   updateGoalProgress: (id: number, delta: number) => void;
   deleteGoal: (id: number) => void;
   updateJournal: (dateKey: string, content: string) => void;
+  deleteJournalEntry: (dateKey: string) => void;
   addHabit: (name: string) => void;
   updateHabitStatus: (habitName: string, dateKey: string, status: HabitStatus) => void;
   deleteHabit: (name: string) => void;

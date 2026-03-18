@@ -92,14 +92,14 @@ export default function TodosPage() {
         </Link>
 
         <Card>
-          <h1 className="text-4xl font-extrabold mb-2 bg-gradient-to-r from-accent-blue to-accent-emerald bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-2 bg-gradient-to-r from-accent-blue to-accent-emerald bg-clip-text text-transparent">
             Daily To-Dos
           </h1>
           <p className="text-chronicle-text-muted mb-8">
             {formatDate(selectedDate)}
           </p>
 
-          <form onSubmit={handleSubmit} className="flex gap-3 mb-8">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 mb-8">
             <input
               ref={inputRef}
               type="text"
@@ -109,13 +109,13 @@ export default function TodosPage() {
               className="input flex-1"
               autoFocus
             />
-            <button type="submit" className="btn-primary flex items-center gap-2">
+            <button type="submit" className="btn-primary flex items-center justify-center gap-2 sm:w-auto w-full">
               <Plus size={20} />
               Add
             </button>
           </form>
 
-          <div className="grid grid-cols-3 gap-4 mb-8 p-4 bg-chronicle-bg-dark/60 rounded-xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 p-4 bg-chronicle-bg-dark/60 rounded-xl">
             <div className="text-center">
               <div className="text-2xl font-bold text-accent-blue">{currentTodos.length}</div>
               <div className="text-sm text-chronicle-text-muted">Total Tasks</div>
@@ -173,7 +173,7 @@ export default function TodosPage() {
                       e.stopPropagation();
                       handleDelete(todo.id);
                     }}
-                    className="opacity-0 group-hover:opacity-100 transition-opacity text-accent-rose hover:scale-110 transform"
+                    className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-accent-rose hover:scale-110 transform"
                   >
                     <Trash2 size={18} />
                   </button>

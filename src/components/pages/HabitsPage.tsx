@@ -77,14 +77,14 @@ export default function HabitsPage() {
         </Link>
 
         <Card className="mb-6">
-          <h1 className="text-4xl font-extrabold mb-2 bg-gradient-to-r from-accent-orange to-accent-emerald bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-2 bg-gradient-to-r from-accent-orange to-accent-emerald bg-clip-text text-transparent">
             Habit Tracker
           </h1>
           <p className="text-chronicle-text-muted mb-8">
             Build consistency, one day at a time
           </p>
 
-          <form onSubmit={handleSubmit} className="flex gap-3">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
             <input
               ref={inputRef}
               type="text"
@@ -94,7 +94,7 @@ export default function HabitsPage() {
               className="input flex-1"
               autoFocus
             />
-            <button type="submit" className="btn-primary flex items-center gap-2">
+            <button type="submit" className="btn-primary flex items-center justify-center gap-2 sm:w-auto w-full">
               <Plus size={20} />
               Add Habit
             </button>
@@ -110,7 +110,7 @@ export default function HabitsPage() {
         ) : (
           <Card>
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full min-w-[760px]">
                 <thead>
                   <tr className="border-b border-white/10">
                     <th className="text-left py-3 px-4 font-semibold text-chronicle-text-muted">
@@ -173,7 +173,7 @@ export default function HabitsPage() {
                       <td className="py-4 px-2">
                         <button
                           onClick={() => handleDeleteHabit(habit.name)}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity text-accent-rose hover:scale-110 transform"
+                          className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-accent-rose hover:scale-110 transform"
                         >
                           <Trash2 size={18} />
                         </button>
